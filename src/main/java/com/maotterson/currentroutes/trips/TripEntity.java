@@ -1,5 +1,6 @@
 package com.maotterson.currentroutes.trips;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maotterson.currentroutes.locations.LocationEntity;
 
 import javax.persistence.*;
@@ -11,14 +12,17 @@ public class TripEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-
+    private String name;
     @ManyToOne
     @JoinColumn(name = "start_location_id")
+    @JsonProperty("start_location")
     private LocationEntity startLocation;
     @ManyToOne
     @JoinColumn(name = "end_location_id")
+    @JsonProperty("end_location")
     private LocationEntity endLocation;
-    public TripEntity(LocationEntity startLocation, LocationEntity endLocation) {
+    public TripEntity(String name, LocationEntity startLocation, LocationEntity endLocation) {
+        this.name = name;
         this.startLocation = startLocation;
         this.endLocation = endLocation;
     }
@@ -32,6 +36,14 @@ public class TripEntity {
 
     public void setStartLocation(LocationEntity startLocation) {
         this.startLocation = startLocation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocationEntity getEndLocation() {

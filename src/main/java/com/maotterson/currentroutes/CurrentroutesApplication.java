@@ -27,9 +27,9 @@ public class CurrentroutesApplication {
             var store = locationRepository.findById(2L).orElseThrow();
             var gym = locationRepository.findById(3L).orElseThrow();
             var office = locationRepository.findById(3L).orElseThrow();
-            tripRepository.save(new TripEntity(home, store));
-            tripRepository.save(new TripEntity(home, gym));
-            tripRepository.save(new TripEntity(home, office));
+            tripRepository.save(new TripEntity("Trip to store", home, store));
+            tripRepository.save(new TripEntity("Going to gym", home, gym));
+            tripRepository.save(new TripEntity("Work commute", home, office));
         };
     }
 }
