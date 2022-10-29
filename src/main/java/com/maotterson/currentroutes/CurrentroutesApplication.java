@@ -17,13 +17,19 @@ public class CurrentroutesApplication {
     }
 
     @Bean
-    CommandLineRunner migrateData(TripRepository tripRepository, LocationRepository locationRepository){
+    CommandLineRunner seedData(TripRepository tripRepository, LocationRepository locationRepository){
         return args -> {
             locationRepository.save(new LocationEntity("My house"));
             locationRepository.save(new LocationEntity("The store"));
-            var location1 = locationRepository.findById(1L).orElseThrow();
-            var location2 = locationRepository.findById(2L).orElseThrow();
-            tripRepository.save(new TripEntity(location1, location2));
+            locationRepository.save(new LocationEntity("The gym"));
+            locationRepository.save(new LocationEntity("The office"));
+            var home = locationRepository.findById(1L).orElseThrow();
+            var store = locationRepository.findById(2L).orElseThrow();
+            var gym = locationRepository.findById(3L).orElseThrow();
+            var office = locationRepository.findById(3L).orElseThrow();
+            tripRepository.save(new TripEntity(home, store));
+            tripRepository.save(new TripEntity(home, gym));
+            tripRepository.save(new TripEntity(home, office));
         };
     }
 }
