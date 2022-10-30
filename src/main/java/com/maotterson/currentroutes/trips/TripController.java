@@ -23,7 +23,7 @@ public class TripController {
         var trips = tripService.getAllTrips();
         return ResponseEntity.ok(
                 TripResponse.builder()
-                        .timeStamp(LocalDateTime.now())
+                        .timestamp(LocalDateTime.now())
                         .data(trips)
                         .message("Trips retrieved")
                         .status(HttpStatus.OK)
