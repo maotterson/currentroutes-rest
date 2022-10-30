@@ -19,10 +19,10 @@ public class CurrentroutesApplication {
     @Bean
     CommandLineRunner seedData(TripRepository tripRepository, LocationRepository locationRepository){
         return args -> {
-            locationRepository.save(new LocationEntity("My house"));
-            locationRepository.save(new LocationEntity("The store"));
-            locationRepository.save(new LocationEntity("The gym"));
-            locationRepository.save(new LocationEntity("The office"));
+            locationRepository.save(new LocationEntity("My house", "ChIJ7fYQtob6MIgRgRLpwIItBxU"));
+            locationRepository.save(new LocationEntity("The store", "ChIJTbhI1IXwMIgR6YSqsVRS1cE"));
+            locationRepository.save(new LocationEntity("The gym", "ChIJtZl8uoH6MIgRIJlSUVz--lM"));
+            locationRepository.save(new LocationEntity("The office", "ChIJnzfZu23wMIgRXsydHOM2tKs"));
             var home = locationRepository.findById(1L).orElseThrow();
             var store = locationRepository.findById(2L).orElseThrow();
             var gym = locationRepository.findById(3L).orElseThrow();
