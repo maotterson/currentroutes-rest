@@ -45,8 +45,10 @@ public class TripController {
     private TripDto toTripDto(TripEntity trip){
         var startLocationDto = LocationHelpers.toLocationDto(trip.getStartLocation());
         var endLocationDto = LocationHelpers.toLocationDto(trip.getEndLocation());
-        var directionsDto = DirectionsHelpers.toDirectionsDto(trip.getDirections());
-        return new TripDto(trip.getId(), trip.getName(), startLocationDto, endLocationDto, directionsDto);
+        return TripDto.builder().startLocation(startLocationDto)
+                .endLocation(endLocationDto)
+                .directions(trip.getDirections() != null ? DirectionsHelpers.toDirectionsDto(trip.getDirections()) : null)
+                .build();
     }
 
 }
