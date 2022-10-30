@@ -1,5 +1,7 @@
 package com.maotterson.currentroutes.locations;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,9 +12,12 @@ public class LocationEntity {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
+    @JsonProperty("place_id")
+    private String placeId;
 
-    public LocationEntity(String name) {
+    public LocationEntity(String name, String placeId) {
         this.name = name;
+        this.placeId = placeId;
     }
 
     public LocationEntity() {
@@ -24,6 +29,14 @@ public class LocationEntity {
     }
 
     public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPlaceId() {
+        return this.placeId;
+    }
+
+    public void setPlaceId(String placeId) {
         this.id = id;
     }
 

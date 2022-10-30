@@ -21,5 +21,5 @@ public class TripResponse {
     protected int statusCode;
     protected String reason;
     protected String message;
-    protected Collection<TripEntity> data;
+    protected Collection<TripDto> data;
 }
