@@ -33,4 +33,23 @@ public class TripService {
         });
         return trips;
     }
+
+    public TripEntity getTripById(Long id){
+        return tripRepository.findById(id).orElseThrow();
+    }
+
+    public Boolean editTripById(Long id, TripEntity trip){
+        tripRepository.save(trip); // may not require id using JPA
+        return true;
+    }
+
+    public Boolean createTrip(TripEntity trip){
+        tripRepository.save(trip);
+        return true;
+    }
+
+    public Boolean deleteTripById(Long id){
+        tripRepository.deleteById(id);
+        return true;
+    }
 }

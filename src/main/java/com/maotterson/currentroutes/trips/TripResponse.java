@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.Map;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -21,5 +21,5 @@ public class TripResponse {
     protected int statusCode;
     protected String reason;
     protected String message;
-    protected Collection<TripDto> data;
+    protected Map<?,?> data;
 }
