@@ -41,7 +41,7 @@ public class TripController {
     }
 
     @PostMapping
-    public ResponseEntity<TripResponse> createTrip(@ResponseBody TripEntity trip){
+    public ResponseEntity<TripResponse> createTrip(@RequestBody TripEntity trip){
         var created = tripService.createTrip(trip);
         if(!created){
             return sendErrorResponse(TripAction.CREATE_TRIP);
@@ -78,7 +78,7 @@ public class TripController {
     }
 
     @PutMapping(path = "{tripId}")
-    public ResponseEntity<TripResponse> editTrip(@PathVariable("tripId") Long tripId, @ResponseBody TripEntity trip){
+    public ResponseEntity<TripResponse> editTrip(@PathVariable("tripId") Long tripId, @RequestBody TripEntity trip){
         var edited = tripService.editTripById(tripId, trip);
         if(!edited){
             return sendErrorResponse(TripAction.EDIT_TRIP);
