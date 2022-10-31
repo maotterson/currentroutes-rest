@@ -23,7 +23,7 @@ public class TripController {
 
     @GetMapping
     public ResponseEntity<TripResponse> getAllTrips(){
-        var trips = tripService.getAllTrips();
+        var trips = tripService.getAllTripsAndDirections();
         var tripDtoCollection = trips.stream()
                 .map(trip -> {
                     return toTripDto(trip);

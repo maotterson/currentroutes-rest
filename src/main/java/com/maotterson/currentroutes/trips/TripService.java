@@ -1,6 +1,8 @@
 package com.maotterson.currentroutes.trips;
 
-import com.maotterson.currentroutes.directions.DirectionsService;
+import com.maotterson.currentroutes.directions.DirectionsServiceImpl;
+import com.maotterson.currentroutes.directions.IDirectionsService;
+import com.maotterson.currentroutes.directions.MockDirectionsServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -9,9 +11,10 @@ import java.util.Collection;
 @Service
 public class TripService {
     private final TripRepository tripRepository;
-    private final DirectionsService directionsService;
+    private final IDirectionsService directionsService;
 
-    public TripService(TripRepository tripRepository, DirectionsService directionsService) {
+    // change mock service to api service to integrate google maps api
+    public TripService(TripRepository tripRepository, MockDirectionsServiceImpl directionsService) {
         this.tripRepository = tripRepository;
         this.directionsService = directionsService;
     }

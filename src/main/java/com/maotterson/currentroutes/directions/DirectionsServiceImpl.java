@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class DirectionsService {
+public class DirectionsServiceImpl implements IDirectionsService {
     private final String GOOGLE_DIRECTIONS_API = "https://maps.googleapis.com/maps/api/directions/json";
     private final String GOOGLE_API_KEY = "";
 
@@ -27,6 +27,6 @@ public class DirectionsService {
     }
 
     private Directions mapToDirections(Response response){
-        return new Directions(10);
+        return new Directions(10f, "description");
     }
 }
