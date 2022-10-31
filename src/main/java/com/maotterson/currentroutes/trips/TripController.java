@@ -3,6 +3,7 @@ package com.maotterson.currentroutes.trips;
 import com.maotterson.currentroutes.directions.DirectionsHelpers;
 import com.maotterson.currentroutes.locations.LocationHelpers;
 import com.maotterson.currentroutes.trips.dto.CreateTripDto;
+import com.maotterson.currentroutes.trips.dto.EditTripDto;
 import com.maotterson.currentroutes.trips.dto.TripDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,16 +77,17 @@ public class TripController {
     }
 
     @PutMapping(path = "{tripId}")
-    public ResponseEntity<TripResponse> editTrip(@PathVariable("tripId") Long tripId, @RequestBody TripEntity trip){
-        var edited = tripService.editTripById(tripId, trip);
+    public ResponseEntity<TripResponse> editTrip(@PathVariable("tripId") Long tripId, @RequestBody EditTripDto editTripDto){
+        var edited = tripService.editTrip(editTripDto);
         if(!edited){
             return sendErrorResponse(TripAction.EDIT_TRIP);
         }
-        var tripDto = TripHelpers.toTripDto(trip);
+        var editedTrip = tripService.getTripById(tripId);
+        var editedTripDto = TripHelpers.toTripDto(editedTrip);
         return ResponseEntity.ok(
                 TripResponse.builder()
                         .timestamp(LocalDateTime.now())
-                        .data(Map.of("trip",tripDto))
+                        .data(Map.of("trip",editedTripDto))
                         .message("Trip edited")
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())

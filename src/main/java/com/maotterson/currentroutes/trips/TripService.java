@@ -5,6 +5,7 @@ import com.maotterson.currentroutes.directions.IDirectionsService;
 import com.maotterson.currentroutes.directions.MockDirectionsServiceImpl;
 import com.maotterson.currentroutes.locations.LocationService;
 import com.maotterson.currentroutes.trips.dto.CreateTripDto;
+import com.maotterson.currentroutes.trips.dto.EditTripDto;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -45,8 +46,16 @@ public class TripService {
         return tripRepository.findById(id).orElseThrow();
     }
 
-    public Boolean editTripById(Long id, TripEntity trip){
-        tripRepository.save(trip); // may not require id using JPA
+    public Boolean editTrip(EditTripDto editTripDto){
+        try{
+            var startLocation = locationService.getLocationById(editTripDto.getStartLocationId());
+            var endLocation = locationService.getLocationById(editTripDto.getEndLocationId());
+            var trip = new TripEntity(editTripDto.getName(), startLocation, endLocation);
+            tripRepository.save(trip);
+        }
+        catch(Exception e){
+            return false;
+        }
         return true;
     }
 
