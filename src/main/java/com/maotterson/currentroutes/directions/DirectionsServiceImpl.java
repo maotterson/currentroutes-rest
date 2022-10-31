@@ -12,8 +12,8 @@ public class DirectionsServiceImpl implements IDirectionsService {
     private final String GOOGLE_API_KEY = "";
 
     public Directions getDirections(LocationEntity startLocation, LocationEntity endLocation) throws IOException {
-        var startPlaceId = startLocation.getPlaceId();
-        var endPlaceId = endLocation.getPlaceId();
+        var startPlaceId = "place_id:"+startLocation.getPlaceId();
+        var endPlaceId = "place_id:"+endLocation.getPlaceId();
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("text/plain");
@@ -27,6 +27,6 @@ public class DirectionsServiceImpl implements IDirectionsService {
     }
 
     private Directions mapToDirections(Response response){
-        return new Directions(10f, "description");
+        return new Directions(10f, 12f,"description");
     }
 }

@@ -11,7 +11,8 @@ public class MockDirectionsServiceImpl implements IDirectionsService {
         var startPlaceId = startLocation.getPlaceId();
         var endPlaceId = endLocation.getPlaceId();
         var description = "VIA 1-90";
+        var durationTraffic = 21f;
         var duration = 22f;
-        return new Directions(duration, description);
+        return new Directions(durationTraffic, duration, description);
     }
 }
