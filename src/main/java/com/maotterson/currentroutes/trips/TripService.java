@@ -8,10 +8,12 @@ import com.maotterson.currentroutes.trips.dto.CreateTripDto;
 import com.maotterson.currentroutes.trips.dto.EditTripDto;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Collection;
 
 @Service
+@Transactional
 public class TripService {
     private final TripRepository tripRepository;
     private final LocationService locationService;
@@ -46,11 +48,14 @@ public class TripService {
         return tripRepository.findById(id).orElseThrow();
     }
 
-    public Boolean editTrip(EditTripDto editTripDto){
+    public Boolean editTripById(Long id, EditTripDto editTripDto){
         try{
             var startLocation = locationService.getLocationById(editTripDto.getStartLocationId());
             var endLocation = locationService.getLocationById(editTripDto.getEndLocationId());
-            var trip = new TripEntity(editTripDto.getName(), startLocation, endLocation);
+            var trip = tripRepository.findById(id).orElseThrow();
+            trip.setName(editTripDto.getName());
+            trip.setStartLocation(startLocation);
+            trip.setEndLocation(endLocation);
             tripRepository.save(trip);
         }
         catch(Exception e){

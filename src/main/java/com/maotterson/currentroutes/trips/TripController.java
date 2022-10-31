@@ -78,7 +78,7 @@ public class TripController {
 
     @PutMapping(path = "{tripId}")
     public ResponseEntity<TripResponse> editTrip(@PathVariable("tripId") Long tripId, @RequestBody EditTripDto editTripDto){
-        var edited = tripService.editTrip(editTripDto);
+        var edited = tripService.editTripById(tripId, editTripDto);
         if(!edited){
             return sendErrorResponse(TripAction.EDIT_TRIP);
         }

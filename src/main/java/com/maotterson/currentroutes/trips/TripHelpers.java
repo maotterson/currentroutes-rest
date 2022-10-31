@@ -10,6 +10,7 @@ public class TripHelpers {
         var startLocationDto = LocationHelpers.toLocationDto(trip.getStartLocation());
         var endLocationDto = LocationHelpers.toLocationDto(trip.getEndLocation());
         return TripDto.builder()
+                .id(trip.getId())
                 .name(trip.getName())
                 .startLocation(startLocationDto)
                 .endLocation(endLocationDto)
