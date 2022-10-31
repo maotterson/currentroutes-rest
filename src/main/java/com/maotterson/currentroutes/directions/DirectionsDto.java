@@ -6,5 +6,7 @@ import lombok.Data;
 @Data
 public class DirectionsDto {
     @JsonProperty("duration_in_traffic")
-    private final float durationInTraffic;
+    private final Float durationInTraffic;
+    @JsonProperty("description")
+    private final String description;
 }
