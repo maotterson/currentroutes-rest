@@ -1,4 +1,4 @@
-package com.maotterson.currentroutes.trips;
+package com.maotterson.currentroutes.trips.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -3,6 +3,8 @@ package com.maotterson.currentroutes.trips;
 import com.maotterson.currentroutes.directions.DirectionsServiceImpl;
 import com.maotterson.currentroutes.directions.IDirectionsService;
 import com.maotterson.currentroutes.directions.MockDirectionsServiceImpl;
+import com.maotterson.currentroutes.locations.LocationService;
+import com.maotterson.currentroutes.trips.dto.CreateTripDto;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,12 +13,14 @@ import java.util.Collection;
 @Service
 public class TripService {
     private final TripRepository tripRepository;
+    private final LocationService locationService;
     private final IDirectionsService directionsService;
 
     // change mock service to api service to integrate google maps api
-    public TripService(TripRepository tripRepository, MockDirectionsServiceImpl directionsService) {
+    public TripService(TripRepository tripRepository, LocationService locationService, MockDirectionsServiceImpl directionsService) {
         this.tripRepository = tripRepository;
         this.directionsService = directionsService;
+        this.locationService = locationService;
     }
 
     public Collection<TripEntity> getAllTrips(){
@@ -46,8 +50,16 @@ public class TripService {
         return true;
     }
 
-    public Boolean createTrip(TripEntity trip){
-        tripRepository.save(trip);
+    public Boolean createTrip(CreateTripDto createTripDto){
+        try{
+            var startLocation = locationService.getLocationById(createTripDto.getStartLocationId());
+            var endLocation = locationService.getLocationById(createTripDto.getEndLocationId());
+            var trip = new TripEntity(createTripDto.getName(), startLocation, endLocation);
+            tripRepository.save(trip);
+        }
+        catch(Exception e){
+            return false;
+        }
         return true;
     }
 

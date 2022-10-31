@@ -2,14 +2,14 @@ package com.maotterson.currentroutes.trips;
 
 import com.maotterson.currentroutes.directions.DirectionsHelpers;
 import com.maotterson.currentroutes.locations.LocationHelpers;
+import com.maotterson.currentroutes.trips.dto.CreateTripDto;
+import com.maotterson.currentroutes.trips.dto.TripDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.stream.Location;
 import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -26,7 +26,7 @@ public class TripController {
         var trips = tripService.getAllTripsAndDirections();
         var tripDtoCollection = trips.stream()
                 .map(trip -> {
-                    return toTripDto(trip);
+                    return TripHelpers.toTripDto(trip);
                 })
                 .toList();
         return ResponseEntity.ok(
@@ -41,16 +41,14 @@ public class TripController {
     }
 
     @PostMapping
-    public ResponseEntity<TripResponse> createTrip(@RequestBody TripEntity trip){
-        var created = tripService.createTrip(trip);
+    public ResponseEntity<TripResponse> createTrip(@RequestBody CreateTripDto createTripDto){
+        var created = tripService.createTrip(createTripDto);
         if(!created){
             return sendErrorResponse(TripAction.CREATE_TRIP);
         }
-        var tripDto = toTripDto(trip);
         return ResponseEntity.ok(
                 TripResponse.builder()
                         .timestamp(LocalDateTime.now())
-                        .data(Map.of("trip",tripDto))
                         .message("Trip created")
                         .status(HttpStatus.CREATED)
                         .statusCode(HttpStatus.CREATED.value())
@@ -65,7 +63,7 @@ public class TripController {
         if(!deleted){
             return sendErrorResponse(TripAction.DELETE_TRIP);
         }
-        var tripDto = toTripDto(tripToDelete);
+        var tripDto = TripHelpers.toTripDto(tripToDelete);
         return ResponseEntity.ok(
                 TripResponse.builder()
                         .timestamp(LocalDateTime.now())
@@ -83,7 +81,7 @@ public class TripController {
         if(!edited){
             return sendErrorResponse(TripAction.EDIT_TRIP);
         }
-        var tripDto = toTripDto(trip);
+        var tripDto = TripHelpers.toTripDto(trip);
         return ResponseEntity.ok(
                 TripResponse.builder()
                         .timestamp(LocalDateTime.now())
@@ -95,16 +93,7 @@ public class TripController {
         );
     }
 
-    private TripDto toTripDto(TripEntity trip){
-        var startLocationDto = LocationHelpers.toLocationDto(trip.getStartLocation());
-        var endLocationDto = LocationHelpers.toLocationDto(trip.getEndLocation());
-        return TripDto.builder()
-                .name(trip.getName())
-                .startLocation(startLocationDto)
-                .endLocation(endLocationDto)
-                .directions(trip.getDirections() != null ? DirectionsHelpers.toDirectionsDto(trip.getDirections()) : null)
-                .build();
-    }
+
 
     private ResponseEntity<TripResponse> sendErrorResponse(TripAction typeOfAction){
         String actionMessage = "";

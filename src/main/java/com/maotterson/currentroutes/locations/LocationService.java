@@ -15,4 +15,6 @@ public class LocationService {
     public Collection<LocationEntity> getLocations(){
         return locationRepository.findAll();
     }
+
+    public LocationEntity getLocationById(long id) { return locationRepository.findById(id).orElseThrow(); }
 }
