@@ -2,8 +2,8 @@ package com.maotterson.currentroutes.trips.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maotterson.currentroutes.directions.DirectionsDto;
-import com.maotterson.currentroutes.locations.LocationDto;
+import com.maotterson.currentroutes.directions.dto.DirectionsDto;
+import com.maotterson.currentroutes.locations.dto.LocationDto;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import org.springframework.lang.Nullable;

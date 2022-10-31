@@ -1,4 +1,4 @@
-package com.maotterson.currentroutes.directions;
+package com.maotterson.currentroutes.directions.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

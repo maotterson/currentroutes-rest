@@ -1,5 +1,6 @@
 package com.maotterson.currentroutes.locations;
 
+import com.maotterson.currentroutes.locations.dto.LocationDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

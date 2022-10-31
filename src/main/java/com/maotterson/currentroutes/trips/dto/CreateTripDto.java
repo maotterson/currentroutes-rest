@@ -2,7 +2,6 @@ package com.maotterson.currentroutes.trips.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maotterson.currentroutes.locations.LocationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
